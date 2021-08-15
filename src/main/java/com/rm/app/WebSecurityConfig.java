@@ -14,24 +14,23 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
 	DataSource dataSource;
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers("/test").hasRole("ADMIN")
-				.anyRequest()
-				.authenticated()
+				.antMatchers("/h2-console/**").permitAll()
+				.antMatchers("/users").hasRole("ADMIN")
 				.and()
 			.formLogin()
 				.and()
 			.logout()
 				.permitAll();
 	}
-	
+
 	@Bean
 	@Override
 	protected UserDetailsService userDetailsService() {

@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.rm.app.entities.Users;
 
-public interface TestRepository extends CrudRepository<Users, String>{
+public interface UserRepository extends CrudRepository<Users, String> {
 
 }

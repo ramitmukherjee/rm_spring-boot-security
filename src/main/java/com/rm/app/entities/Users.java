@@ -1,8 +1,11 @@
 package com.rm.app.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -17,6 +20,7 @@ public class Users {
 	private String username;
 	private String password;
 	private Boolean enabled;
+	private List<Authority> authorities;
 	
 	@Id
 	public String getUsername() {
@@ -42,6 +46,15 @@ public class Users {
 	
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	@OneToMany(mappedBy = "users")
+	public List<Authority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(List<Authority> authorities) {
+		this.authorities = authorities;
 	}
 	
 }
