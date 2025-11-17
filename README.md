@@ -1,6 +1,4 @@
 # spring-security-basic-jdbc
 
 ## Notes
-1. localhost:8080/app/users
-2. Check out schema.sql and data.sql for schema and default user.
-3. I have overridden the default userDetailsService in WebSecurityConfig.java
+https://www.notion.so/Spring-Security-in-Action-Second-Edition-2a97309b63e28006889ef6f7935e8e84?source=copy_link
