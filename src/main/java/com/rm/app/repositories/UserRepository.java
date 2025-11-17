@@ -1,9 +1,11 @@
 package com.rm.app.repositories;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-import com.rm.app.entities.Users;
+import com.rm.app.entities.UserEO;
 
-public interface UserRepository extends CrudRepository<Users, String> {
+@Repository
+public interface UserRepository extends CrudRepository<UserEO, String> {
 
 }

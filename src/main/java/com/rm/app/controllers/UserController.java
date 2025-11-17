@@ -1,32 +1,32 @@
-package com.rm.app.controllers;
+// package com.rm.app.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
+// import java.util.ArrayList;
+// import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.web.bind.annotation.GetMapping;
+// import org.springframework.web.bind.annotation.RequestMapping;
+// import org.springframework.web.bind.annotation.RestController;
 
-import com.rm.app.entities.Users;
-import com.rm.app.models.UsersVO;
-import com.rm.app.repositories.UserRepository;
+// import com.rm.app.repositories.UserRepository;
+// import com.rm.app.entities.UserEO;
+// import com.rm.app.models.SecurityUser;
 
-@RequestMapping("/users")
-@RestController
-public class UserController {
+// @RequestMapping("/users")
+// @RestController
+// public class UserController {
 	
-	@Autowired
-	UserRepository userRepository;
+// 	@Autowired
+// 	UserRepository userRepository;
 	
-	@GetMapping
-	public Iterable<UsersVO> getAllUsers() {
-		Iterable<Users> usersIterable = userRepository.findAll();
-		List<UsersVO> usersVOs = new ArrayList<>();
-		for(Users u: usersIterable) {
-			usersVOs.add(UsersVO.toModel(u));
-		}
-		return usersVOs;
-	}
+// 	@GetMapping
+// 	public Iterable<SecurityUser> getAllUsers() {
+// 		Iterable<UserEO> usersIterable = userRepository.findAll();
+// 		List<SecurityUser> securityUsers = new ArrayList<>();
+// 		for(UserEO u: usersIterable) {
+// 			securityUsers.add(new SecurityUser(u));
+// 		}
+// 		return securityUsers;
+// 	}
 
-}
+// }

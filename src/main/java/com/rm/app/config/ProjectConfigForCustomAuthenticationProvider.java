@@ -1,0 +1,28 @@
+package com.rm.app.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+// @Configuration
+public class ProjectConfigForCustomAuthenticationProvider {
+
+    private final CustomAuthenticationProvider authenticationProvider;
+
+    public ProjectConfigForCustomAuthenticationProvider(CustomAuthenticationProvider authenticationProvider) {
+        this.authenticationProvider = authenticationProvider;
+    }
+
+    @Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        
+        httpSecurity.authenticationProvider(authenticationProvider);
+        
+        httpSecurity.authorizeHttpRequests(customizer -> customizer.anyRequest().authenticated());
+        
+        return httpSecurity.build();
+    }
+
+
+}
