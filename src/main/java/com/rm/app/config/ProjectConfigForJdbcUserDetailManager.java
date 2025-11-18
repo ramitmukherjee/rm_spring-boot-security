@@ -1,13 +1,25 @@
 package com.rm.app.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class ProjectConfigForJdbcUserDetailManager {
@@ -19,6 +31,7 @@ public class ProjectConfigForJdbcUserDetailManager {
         // String authsByUserQuery = "select username, authority from <AUTHORITIES_TABLE> where username = ?";
 
         JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
+        userDetailsManager.setEnableAuthorities(true);
         
         // userDetailsManager.setUsersByUsernameQuery(usersByUsernameQuery);
         // userDetailsManager.setAuthoritiesByUsernameQuery(authsByUserQuery);
@@ -27,8 +40,18 @@ public class ProjectConfigForJdbcUserDetailManager {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
+    }
+
+    @Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        
+        httpSecurity.httpBasic(Customizer.withDefaults());
+        // Temporarily disable csrf to test POST requests
+        httpSecurity.csrf(csrf -> csrf.disable());
+        
+        return httpSecurity.build();
     }
 
 }
