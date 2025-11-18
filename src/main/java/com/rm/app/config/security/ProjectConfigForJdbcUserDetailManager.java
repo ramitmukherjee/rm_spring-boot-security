@@ -24,14 +24,7 @@ public class ProjectConfigForJdbcUserDetailManager {
     @Bean
     UserDetailsService userDetailsService(DataSource dataSource) {
 
-        // String usersByUsernameQuery = "select username, password, enabled from <USERS_TABLE> where username = ?";
-        // String authsByUserQuery = "select username, authority from <AUTHORITIES_TABLE> where username = ?";
-
         JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
-        userDetailsManager.setEnableAuthorities(true);
-        
-        // userDetailsManager.setUsersByUsernameQuery(usersByUsernameQuery);
-        // userDetailsManager.setAuthoritiesByUsernameQuery(authsByUserQuery);
         
         return userDetailsManager;
     }
