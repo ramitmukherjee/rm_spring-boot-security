@@ -1,4 +1,4 @@
-package com.rm.app.config;
+package com.rm.app.config.security;
 
 import java.util.List;
 

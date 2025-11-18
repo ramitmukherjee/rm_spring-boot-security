@@ -1,4 +1,4 @@
-package com.rm.app.config;
+package com.rm.app.config.security;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,17 +9,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+
+import com.rm.app.config.filters.CustomRequestValidationFilter;
 
 @Configuration
 public class ProjectConfigForJdbcUserDetailManager {
@@ -50,6 +47,8 @@ public class ProjectConfigForJdbcUserDetailManager {
         httpSecurity.httpBasic(Customizer.withDefaults());
         // Temporarily disable csrf to test POST requests
         httpSecurity.csrf(csrf -> csrf.disable());
+
+        httpSecurity.addFilterBefore(new CustomRequestValidationFilter(), BasicAuthenticationFilter.class);
         
         return httpSecurity.build();
     }
